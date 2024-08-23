@@ -1,0 +1,152 @@
+.w_main_left {
+    font: 12px "宋体", Arial, Helvetica, sans-serif;
+    color: #756F71;
+}
+.c_titile {
+    font-size: 22px;
+    margin: 20px 0;
+    text-align: center;
+    color: #333;
+	font-weight: bold;
+}
+.box_c {
+    border: #ccc 1px dashed;
+    text-align: center;
+    padding: 5px 0;
+    margin-right: 30px;
+    color: #999;
+}
+.box_c span {
+    margin: 0 10px;
+}
+.box_c span a {
+    color: #099;
+}
+ul {
+    list-style: none;
+}
+ul.infos {
+    overflow: hidden;
+    margin: 20px 30px 20px 0;
+    line-height: 28px;
+    font-size: 14px;
+    text-indent: 2em;
+    color: #666;
+}
+
+ul.infos p {
+    margin-bottom: 5px;
+}
+
+.keybq {
+    background: url(../img/tab.png) no-repeat 10px center #F8F8F8;
+    line-height: 30px;
+    height: 30px;
+    padding-left: 40px;
+    border: 1px solid #F0F0F0;
+}
+.keybq span {
+    color: #099;
+}
+.keybq .label{
+	margin-right: 10px;
+}
+.nextinfo {
+	margin: 25px 0px;
+    line-height: 20px;
+}
+.nextinfo .last{
+	width: 50%;
+    float: left;
+}
+
+.nextinfo .next{
+    width: 50%;
+    float: right;
+    text-align: right;
+}
+
+.nextinfo a:hover{
+	color: #337AB7;
+}
+.md_render img{
+    width: 100%;
+    object-fit: contain;
+    margin-bottom: 12px;
+  margin-top: 8px;
+}
+.md_render h3 {
+  margin-top:54px;
+  margin-bottom:24px;
+  font-family:"黑体";
+  font-weight:bold;
+  font-size: 20px;
+}
+
+.md_render h4 {
+  margin-top:54px;
+  margin-bottom:24px;
+  font-family:"黑体";
+  font-weight:bold;
+  font-size: 20px;
+}
+
+.md_render h5 {
+  margin-top:48px;
+  margin-bottom:20px;
+  font-family:"黑体";
+  font-weight:bold;
+  font-size: 18px;
+}
+
+.md_render h6 {
+  margin-top:42px;
+  margin-bottom:16px;
+  font-family:"黑体";
+  font-weight:bold;
+  font-size: 16px;
+}
+
+.md_render pre {
+  margin-top:6px;
+  margin-bottom:20px;
+}
+
+.md_render ul {
+  margin-top:6px;
+  margin-bottom:23px;
+  list-style-type: square;
+}
+
+.md_render ul li{
+    text-indent: 0;
+    padding-top: 5px;
+    padding-left: 4px;
+}
+.md_render ol {
+  margin-top:6px;
+  margin-bottom:23px;
+  list-style-type: lower-alpha;
+}
+
+.md_render ol li {
+    text-indent: 0;
+    padding-top: 5px;
+    padding-left: 4px;
+}
+
+.md_render ul p{
+    margin:0;
+    padding:0
+}
+.md_render ol p{
+    margin:0;
+    padding:0
+}
+
+.md_render p {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  line-height: 30px;
+}
+

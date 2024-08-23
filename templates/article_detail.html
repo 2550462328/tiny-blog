@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>灰灰爱吃橙子</title>
+</head>
+
+<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="static/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="static/css/article_detail.css"/>
+<link href="logo.ico" rel="shortcut icon"/>
+<link href="//cdn.bootcdn.net/ajax/libs/highlight.js/10.0.3/styles/railscasts.min.css" rel="stylesheet">
+<link href="//cdn.bootcdn.net/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--<script type="text/javascript" src="plugin/jquery.page.js"></script>-->
+<script src="static/js/common.js"></script>
+<!-- <script src='//unpkg.com/valine/dist/Valine.min.js'></script> -->
+<script src='static/plugin/Valine.min.js'></script>
+<!--<script src="js/snowy.js"></script>-->
+<script src="//cdn.bootcdn.net/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/markdown-it/13.0.1/markdown-it.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/markdown-it-footnote/3.0.2/markdown-it-footnote.min.js"></script>
+<script src="//cdn.bootcdn.net/ajax/libs/markdown-it-emoji/1.4.0/markdown-it-emoji.min.js"></script>
+<script src="static/js/markdown-it-checkbox.min.js"></script>
+
+<body>
+{%include 'header.html' %}
+<div class="w_container">
+    <div class="container">
+        <div class="row w_main_row">
+
+            <ol class="breadcrumb w_breadcrumb">
+                <li><a href="/">首页</a></li>
+                <li><a href={{ "/items?id="+data.item +"&page=1"}}>{{data.item}}</a></li>
+                <li class="active">{{data.title}}</li>
+                <span class="w_navbar_tip">我们长路漫漫，只因学无止境。</span>
+            </ol>
+
+            <div class="col-lg-9 col-md-9 w_main_left">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <h2 id="titiles_id" class="c_titile">{{data.title}}</h2>
+                        <p class="box_c"><span class="d_time">发布时间：{{data.date}}</span><span>编辑：<a
+                                href="mailto:wfyv@qq.com">{{data.author}}</a></span><span>阅读（{{data.visitCnt}}）</span>
+                        </p>
+                        <ul class="infos">
+                            <div class="md_render">
+                            </div>
+                        </ul>
+
+                        <input type="hidden" id="enrolled_id" value="{{ data.body }}">
+                        <!--版权-->
+                        <div class="post-copyright">
+                            <div>
+                                <span><i class="fas fa-copyright"></i>文章标题：{{data.title}}</span>
+                                <br>
+                                <span><i class="fa fa-link"></i>
+								本文链接：<a href={{"/article_detail?id="+data.id}} style="color: cadetblue;"
+                                            title={{data.title}}>{{ request.url }}</a>
+								</span>
+                                <br>
+                                <span><i class="fas fa-exclamation-circle"></i>
+								版权声明：若无特殊标注，文章皆<a href="https://huitogo.club" target="_blank"
+                                                               data-original-title="灰灰爱吃橙子"
+                                                               style="color: cadetblue;">灰灰爱吃橙子</a>原创，转载请注明出处。
+								</span>
+                                <br>
+                            </div>
+                            <!--<img src="https://cdn.lovebykin.com/ztb-ui/zanshang.jpg" title="吱托邦微信赞赏码" alt="吱托邦微信赞赏码">-->
+                        </div>
+                        <!-- <div class="keybq">
+                            <p><span>关键字</span>：<a class="label label-default">个人博客</a><a class="label label-default">阿里云</a><a class="label label-default">空间</a></p>
+                        </div> -->
+
+                        <div class="nextinfo">
+                            <p class="last">上一篇：<a href={{"/article_detail?id="+pre['id']}}>{{pre['title']}}</a></p>
+                            <p class="next">下一篇：<a href={{"/article_detail?id="+next['id']}}>{{next['title']}}</a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div id="vcomments"></div>
+                        <script>
+                            new Valine({
+                                el: '#vcomments',
+                                appId: '21MG1aSIkC71uv7v0NcpKsuk-gzGzoHsz',
+                                appKey: 'ESkTqJu5BOJhiSgaZNoAQrVP',
+                                placeholder: "你是我一生只会遇见一次的惊喜 ...",
+                                avatar:'mm',//小怪物头像,
+                                path: window.location.href,
+                                visitor: true, // 阅读量统
+                                callbacks: {
+                                    loadFinish: function (data) {
+                                        console.log('commentsCount:');
+                                    // 调用Valine的API获取评论数
+                                    valine.api('commentsCount', function (err, count) {
+                                        console.log(count);
+                                    });
+                                    }
+                                }
+                            })
+                        </script>
+                        <!--
+                        <center><div id="cyReward" role="cylabs" data-use="reward" sid="5eab7e4c363e4cb8bed0efa3604e6b42"></div></center>
+
+                        <script type="text/javascript" charset="utf-8" src="https://changyan.itc.cn/js/lib/jquery.js"></script>
+                        <script type="text/javascript" charset="utf-8" src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysPwLFm1"></script>
+                        -->
+                        <!--PC版-->
+                        <!--<div id="SOHUCS" sid="5eab7e4c363e4cb8bed0efa3604e6b42"></div>
+                        <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js" ></script>
+                        <script type="text/javascript">
+                        window.changyan.api.config({
+                        appid: 'cysPwLFm1',
+                        conf: 'prod_6c6350e206c502f569b865b4bf121e60'
+                        });
+                        </script>-->
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 w_main_right">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">文章分类</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="sunnav">
+                            <ul style="padding-left:0em;padding-top:0em;">
+                                {% for itm in items %}
+                                <li><a href={{"/items?id="+itm['item']}} title={{itm['item']}}>{{itm['item']+'('+itm['count']|safe+')'}}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">最新发布</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-unstyled sidebar">
+                            {% for art in news %}
+                            <li><a href={{"/article_detail?id="+art.id}}>{{art.title}}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">热门点击</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-unstyled sidebar">
+                            {% for art in hots %}
+                            <li><a href={{"/article_detail?id="+art.id}}>{{art.title}}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">友情链接</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="newContent">
+                            <ul class="list-unstyled sidebar shiplink">
+                                <li><<a href="https://www.huitogo.club/" target="_blank">灰灰小窝</a></li>
+                                <li><a href="https:/huitogo.club/" target="_blank">旧版笔记</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%include 'footer.html' %}
+<script>
+    var md;
+		var defaults = {
+		html: false, // Enable HTML tags in source
+		xhtmlOut: false, // Use '/' to close single tags (<br />)
+		breaks: false, // Convert '\n' in paragraphs into <br>
+		langPrefix: 'language-', // CSS language prefix for fenced blocks
+		linkify: true, // autoconvert URL-like texts to links
+		typographer: true, // Enable smartypants and other sweet transforms
+		// options below are for demo only
+		_highlight: true,
+		_strict: false,
+		_view: 'html' // html / src / debug
+		};
+		defaults.highlight = function (str, lang) {
+		var esc = md.utils.escapeHtml;
+
+		if (lang && hljs.getLanguage(lang)) {
+			try {
+			return '<pre class="hljs"><code>' +
+					hljs.highlight(lang, str, true).value +
+					'</code></pre>';
+			} catch (__) {}
+		}
+		return '<pre class="hljs"><code>' + esc(str) + '</code></pre>';
+		};
+		md = window.markdownit(defaults).use(window.markdownitCheckbox).use(window.markdownitEmoji).use(window.markdownitFootnote);
+		var dat = document.querySelector('#enrolled_id').value;
+		$('.md_render').html(md.render(dat));
+</script>
+<!--snow-->
+<!--<div class="snow-container"></div>-->
+</body>
+</html>
