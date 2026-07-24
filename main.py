@@ -7,11 +7,33 @@ import articles
 import atexit
 import json
 import os
+from pathlib import Path
+
+
+def load_local_env(path=".env"):
+    """Load simple KEY=VALUE entries without overriding injected environment variables."""
+    env_path = Path(path)
+    if not env_path.is_file():
+        return
+    for raw_line in env_path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        os.environ.setdefault(key.strip(), value.strip())
+
+
+load_local_env()
 
 app = Flask(__name__, template_folder="templates", static_folder="static", static_url_path="/static")
 
 # 访问安全认证码
-verify_code = "111111"
+verify_code = os.environ.get("TINY_BLOG_VERIFY_CODE")
+
+
+def verify_admin_code(code):
+    """仅在服务端已配置授权码且提交值匹配时通过验证。"""
+    return bool(verify_code) and code == verify_code
 
 
 # 首页
@@ -155,7 +177,7 @@ def saysay():
     my_notice = {'TimeOut': 5, 'Href': '/', 'IsSucc': True, 'Mess': '成功'}
     print(request.form)
     code = request.form['code']
-    if code != verify_code:
+    if not verify_admin_code(code):
         my_notice['IsSucc'] = False
         my_notice['Mess'] = '授权码错误'
     else:
@@ -171,7 +193,7 @@ def pub_notice():
     my_notice = {'TimeOut': 5, 'Href': '/', 'IsSucc': True, 'Mess': '成功'}
     print(request.form)
     code = request.form['code']
-    if code != verify_code:
+    if not verify_admin_code(code):
         my_notice['IsSucc'] = False
         my_notice['Mess'] = '授权码错误'
     else:
@@ -186,7 +208,7 @@ def pub_top():
     my_notice = {'TimeOut': 5, 'Href': '/', 'IsSucc': True, 'Mess': '成功'}
     print(request.form)
     code = request.form['code']
-    if code != verify_code:
+    if not verify_admin_code(code):
         my_notice['IsSucc'] = False
         my_notice['Mess'] = '授权码错误'
     else:
@@ -204,7 +226,7 @@ def file_upload():
         file = request.files['file']
         print(file)
         code = request.form['code']
-        if code != verify_code:
+        if not verify_admin_code(code):
             my_notice['IsSucc'] = False
             my_notice['Mess'] = '授权码错误'
         else:
